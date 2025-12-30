@@ -53,12 +53,10 @@ class Entrepot:
             if quantite >= self.seuil_min:
                 # Condition remplie : On supprime l'alerte
                 self.log_alertes.remove(id_produit)
-                print(f" RÉSOLU : Alerte {id_produit} 
-                    retirée du log (Stock {quantite} >= {self.seuil_min}).")
+                print(f" RÉSOLU : Alerte {id_produit} retirée du log (Stock {quantite} >= {self.seuil_min}).")
             else:
                 # Feedback important : On a ajouté du stock, mais pas assez
-                print(f" STOCK BAS : {id_produit} ajouté, mais seuil non atteint 
-                    ({quantite}/{self.seuil_min}). Alerte maintenue.")
+                print(f" STOCK BAS : {id_produit} ajouté, mais seuil non atteint ({quantite}/{self.seuil_min}). Alerte maintenue.")
 
     def enregistrer_alerte(self, id_produit):
         """
@@ -76,8 +74,7 @@ class Entrepot:
             print(f"!!! ALERTE ACTIVÉE : {id_produit} (Stock critique) !!!")
         else:
             # Cas où le log est plein : l'alerte est perdue (comportement demandé)
-            print(f" LOG PLEIN (3/3) : Impossible de logger l'alerte pour {id_produit}. 
-                Traitez les urgences !")
+            print(f" LOG PLEIN (3/3) : Impossible de logger l'alerte pour {id_produit}. Traitez les urgences !")
 
     def afficher_inventaire(self):
         """Affiche le contenu actuel du stock."""
