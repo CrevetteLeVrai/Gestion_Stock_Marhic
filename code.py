@@ -53,10 +53,13 @@ class Entrepot:
             if quantite >= self.seuil_min:
                 # Condition remplie : On supprime l'alerte
                 self.log_alertes.remove(id_produit)
-                print(f" RÉSOLU : Alerte {id_produit} retirée du log (Stock {quantite} >= {self.seuil_min}).")
+                # CORRECTION ICI : Coupe propre pour éviter LineTooLong
+                print(f" RÉSOLU : Alerte {id_produit} retirée du log "
+                      f"(Stock {quantite} >= {self.seuil_min}).")
             else:
-                # Feedback important : On a ajouté du stock, mais pas assez
-                print(f" STOCK BAS : {id_produit} ajouté, mais seuil non atteint ({quantite}/{self.seuil_min}). Alerte maintenue.")
+                # CORRECTION ICI : Coupe propre pour éviter LineTooLong
+                print(f" STOCK BAS : {id_produit} ajouté, mais seuil non "
+                      f"atteint ({quantite}/{self.seuil_min}). Alerte maintenue.")
 
     def enregistrer_alerte(self, id_produit):
         """
@@ -73,8 +76,9 @@ class Entrepot:
             self.log_alertes.append(id_produit)
             print(f"!!! ALERTE ACTIVÉE : {id_produit} (Stock critique) !!!")
         else:
-            # Cas où le log est plein : l'alerte est perdue (comportement demandé)
-            print(f" LOG PLEIN (3/3) : Impossible de logger l'alerte pour {id_produit}. Traitez les urgences !")
+            # CORRECTION ICI : Coupe propre pour éviter LineTooLong
+            print(f" LOG PLEIN (3/3) : Impossible de logger l'alerte pour "
+                  f"{id_produit}. Traitez les urgences !")
 
     def afficher_inventaire(self):
         """Affiche le contenu actuel du stock."""
@@ -132,7 +136,10 @@ class Conditionnement:
 
     @staticmethod
     def afficher_colis(entrepot):
-        """Affiche les colis (vue verticale : le haut de la pile est le haut du carton)."""
+        """
+        Affiche les colis (vue verticale).
+        Le haut de la pile correspond au haut du carton.
+        """
         if not entrepot.liste_colis:
             print("\nAucun colis en zone d'expédition.")
             return
