@@ -1,3 +1,7 @@
+"""
+Module de gestion de stock d'entrepôt et de préparation de colis.
+Simule un système FIFO avec gestion d'alertes et tri volumétrique.
+"""
 import collections
 
 class Entrepot:
@@ -49,10 +53,12 @@ class Entrepot:
             if quantite >= self.seuil_min:
                 # Condition remplie : On supprime l'alerte
                 self.log_alertes.remove(id_produit)
-                print(f" RÉSOLU : Alerte {id_produit} retirée du log (Stock {quantite} >= {self.seuil_min}).")
+                print(f" RÉSOLU : Alerte {id_produit} 
+                    retirée du log (Stock {quantite} >= {self.seuil_min}).")
             else:
                 # Feedback important : On a ajouté du stock, mais pas assez
-                print(f" STOCK BAS : {id_produit} ajouté, mais seuil non atteint ({quantite}/{self.seuil_min}). Alerte maintenue.")
+                print(f" STOCK BAS : {id_produit} ajouté, mais seuil non atteint 
+                    ({quantite}/{self.seuil_min}). Alerte maintenue.")
 
     def enregistrer_alerte(self, id_produit):
         """
@@ -70,7 +76,8 @@ class Entrepot:
             print(f"!!! ALERTE ACTIVÉE : {id_produit} (Stock critique) !!!")
         else:
             # Cas où le log est plein : l'alerte est perdue (comportement demandé)
-            print(f" LOG PLEIN (3/3) : Impossible de logger l'alerte pour {id_produit}. Traitez les urgences !")
+            print(f" LOG PLEIN (3/3) : Impossible de logger l'alerte pour {id_produit}. 
+                Traitez les urgences !")
 
     def afficher_inventaire(self):
         """Affiche le contenu actuel du stock."""
@@ -88,7 +95,8 @@ class Entrepot:
 class Conditionnement:
     """Gère l'assemblage des colis et le tri par volume."""
 
-    def preparer_colis(self, entrepot, chaine_commande):
+    @staticmethod
+    def preparer_colis(entrepot, chaine_commande):
         """
         Crée un colis en retirant les produits du stock.
         Les produits sont triés par volume décroissant (les gros au fond).
@@ -97,7 +105,8 @@ class Conditionnement:
         liste_commande = [p.strip().upper() for p in chaine_commande.split(',')]
         
         for id_produit in liste_commande:
-            if not id_produit: continue # Ignore les entrées vides
+            if not id_produit: 
+                continue # Ignore les entrées vides
 
             # Vérifie si le produit est disponible dans l'entrepôt
             if id_produit in entrepot.stock and entrepot.stock[id_produit]:
@@ -124,7 +133,8 @@ class Conditionnement:
             entrepot.liste_colis.append(contenu_colis)
             print(f" Colis créé avec succès ({len(contenu_colis)} articles).")
 
-    def afficher_colis(self, entrepot):
+    @staticmethod
+    def afficher_colis(entrepot):
         """Affiche les colis (vue verticale : le haut de la pile est le haut du carton)."""
         if not entrepot.liste_colis:
             print("\nAucun colis en zone d'expédition.")
